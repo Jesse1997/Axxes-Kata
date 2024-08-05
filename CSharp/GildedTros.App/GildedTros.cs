@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace GildedTros.App
 {
@@ -18,6 +19,7 @@ namespace GildedTros.App
                 var isItemGoodWine = item.Name == "Good Wine";
                 var isItemBackstagePass = item.Name.Contains("Backstage pass");
                 var isItemLegendary = item.Name == "B-DAWG Keychain";
+                var isSmellyItem = new string[] { "Duplicate Code", "Long Methods", "Ugly Variable Names" }.Contains(item.Name);
 
                 if (isItemLegendary) continue;
 
@@ -33,7 +35,8 @@ namespace GildedTros.App
                 }
                 else
                 {
-                    HandleNormalQuality(item);
+                    if (isSmellyItem) DecrementQuality(item);
+                    DecrementQuality(item);
                 }
             }
         }
@@ -67,7 +70,7 @@ namespace GildedTros.App
             }
         }
 
-        private void HandleNormalQuality(Item item)
+        private void DecrementQuality(Item item)
         {
             if (item.SellIn < 0)
             {

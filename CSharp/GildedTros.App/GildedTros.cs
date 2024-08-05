@@ -25,58 +25,60 @@ namespace GildedTros.App
 
                 if (isItemGoodWine)
                 {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality++;
-                    }
+                    IncrementQuality(item);
                 }
                 else if (isItemBackstagePass)
                 {
-                    if (item.SellIn < 0)
-                    {
-                        item.Quality = 0;
-                        continue;
-                    }
-                    else
-                    {
-                        if (item.Quality < 50)
-                        {
-                            item.Quality++;
-                        }
-                    }
-
-                    if (item.SellIn < 10)
-                    {
-                        if (item.Quality < 50)
-                        {
-                            item.Quality++;
-                        }
-                    }
-
-                    if (item.SellIn < 5)
-                    {
-                        if (item.Quality < 50)
-                        {
-                            item.Quality++;
-                        }
-                    }
+                    HandleBackstagePassQuality(item);
                 }
                 else
                 {
-                    if (item.SellIn < 0)
-                    {
-                        item.Quality -= 2;
-                    }
-                    else
-                    {
-                        item.Quality--;
-                    }
-
-                    if (item.Quality < 0)
-                    {
-                        item.Quality = 0;
-                    }
+                    HandleNormalQuality(item);
                 }
+            }
+        }
+
+        private void IncrementQuality(Item item)
+        {
+            if (item.Quality < 50)
+            {
+                item.Quality++;
+            }
+        }
+
+        private void HandleBackstagePassQuality(Item item)
+        {
+            if (item.SellIn < 0)
+            {
+                item.Quality = 0;
+                return;
+            }
+
+            IncrementQuality(item);
+
+            if (item.SellIn < 10)
+            {
+                IncrementQuality(item);
+            }
+
+            if (item.SellIn < 5)
+            {
+                IncrementQuality(item);
+            }
+        }
+
+        private void HandleNormalQuality(Item item)
+        {
+            if (item.SellIn < 0)
+            {
+                item.Quality--;
+            }
+
+            item.Quality--;
+
+            if (item.Quality < 0)
+            {
+                item.Quality = 0;
             }
         }
     }

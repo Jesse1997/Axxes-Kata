@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace GildedTros.App
 {
     public class GildedTros
     {
         private readonly IList<Item> _items;
+        private const string GOOD_WINE = "Good Wine";
+        private const string BACKSTAGE_PASS = "Backstage pass";
+        private const string LEGENDARY_ITEM = "B-DAWG Keychain";
+        private static readonly HashSet<string> SmellyItems = new HashSet<string> { "Duplicate Code", "Long Methods", "Ugly Variable Names" };
 
         public GildedTros(IList<Item> items)
         {
@@ -16,30 +19,33 @@ namespace GildedTros.App
         {
             foreach (var item in _items)
             {
-                var isItemGoodWine = item.Name == "Good Wine";
-                var isItemBackstagePass = item.Name.Contains("Backstage pass");
-                var isItemLegendary = item.Name == "B-DAWG Keychain";
-                var isSmellyItem = new string[] { "Duplicate Code", "Long Methods", "Ugly Variable Names" }.Contains(item.Name);
-
-                if (isItemLegendary) continue;
+                if (IsLegendaryItem(item)) continue;
 
                 item.SellIn--;
 
-                if (isItemGoodWine)
+                if (IsGoodWine(item))
                 {
                     IncrementQuality(item);
                 }
-                else if (isItemBackstagePass)
+                else if (IsBackstagePass(item))
                 {
                     HandleBackstagePassQuality(item);
                 }
                 else
                 {
-                    if (isSmellyItem) DecrementQuality(item);
+                    if (IsSmellyItem(item)) DecrementQuality(item);
                     DecrementQuality(item);
                 }
             }
         }
+
+        private bool IsGoodWine(Item item) => item.Name == GOOD_WINE;
+
+        private bool IsBackstagePass(Item item) => item.Name.Contains(BACKSTAGE_PASS);
+
+        private bool IsLegendaryItem(Item item) => item.Name == LEGENDARY_ITEM;
+
+        private bool IsSmellyItem(Item item) => SmellyItems.Contains(item.Name);
 
         private void IncrementQuality(Item item)
         {

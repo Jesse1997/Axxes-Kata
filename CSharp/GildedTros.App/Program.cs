@@ -18,7 +18,6 @@ namespace GildedTros.App
                 new() {Name = "Backstage passes for Re:factor", SellIn = 15, Quality = 20},
                 new() {Name = "Backstage passes for Re:factor", SellIn = 10, Quality = 49},
                 new() {Name = "Backstage passes for HAXX", SellIn = 5, Quality = 49},
-                // these smelly items do not work properly yet
                 new() {Name = "Duplicate Code", SellIn = 3, Quality = 6},
                 new() {Name = "Long Methods", SellIn = 3, Quality = 6},
                 new() {Name = "Ugly Variable Names", SellIn = 3, Quality = 6}
@@ -33,7 +32,7 @@ namespace GildedTros.App
                 Console.WriteLine("name, sellIn, quality");
                 for (var j = 0; j < items.Count; j++)
                 {
-                    System.Console.WriteLine(items[j].Name + ", " + items[j].SellIn + ", " + items[j].Quality);
+                    Console.WriteLine(items[j].Name + ", " + items[j].SellIn + ", " + items[j].Quality);
                 }
                 Console.WriteLine("");
                 app.UpdateQuality();

@@ -13,78 +13,78 @@ namespace GildedTros.App
 
         public void UpdateQuality()
         {
-            for (var i = 0; i < _items.Count; i++)
+            foreach (var item in _items)
             {
-                if (_items[i].Name != "Good Wine"
-                    && _items[i].Name != "Backstage passes for Re:factor"
-                    && _items[i].Name != "Backstage passes for HAXX")
+                var isItemGoodWine = item.Name == "Good Wine";
+                var isItemBackstagePass = item.Name.Contains("Backstage pass");
+                var isItemLegendary = item.Name == "B-DAWG Keychain";
+
+                if (!isItemGoodWine && !isItemBackstagePass)
                 {
-                    if (_items[i].Quality > 0)
+                    if (item.Quality > 0)
                     {
-                        if (_items[i].Name != "B-DAWG Keychain")
+                        if (!isItemLegendary)
                         {
-                            _items[i].Quality = _items[i].Quality - 1;
+                            item.Quality = item.Quality - 1;
                         }
                     }
                 }
                 else
                 {
-                    if (_items[i].Quality < 50)
+                    if (item.Quality < 50)
                     {
-                        _items[i].Quality = _items[i].Quality + 1;
+                        item.Quality = item.Quality + 1;
 
-                        if (_items[i].Name == "Backstage passes for Re:factor"
-                        || _items[i].Name == "Backstage passes for HAXX")
+                        if (isItemBackstagePass)
                         {
-                            if (_items[i].SellIn < 11)
+                            if (item.SellIn < 11)
                             {
-                                if (_items[i].Quality < 50)
+                                if (item.Quality < 50)
                                 {
-                                    _items[i].Quality = _items[i].Quality + 1;
+                                    item.Quality = item.Quality + 1;
                                 }
                             }
 
-                            if (_items[i].SellIn < 6)
+                            if (item.SellIn < 6)
                             {
-                                if (_items[i].Quality < 50)
+                                if (item.Quality < 50)
                                 {
-                                    _items[i].Quality = _items[i].Quality + 1;
+                                    item.Quality = item.Quality + 1;
                                 }
                             }
                         }
                     }
                 }
 
-                if (_items[i].Name != "B-DAWG Keychain")
+                if (!isItemLegendary)
                 {
-                    _items[i].SellIn = _items[i].SellIn - 1;
+                    item.SellIn = item.SellIn - 1;
                 }
 
-                if (_items[i].SellIn < 0)
+                if (item.SellIn < 0)
                 {
-                    if (_items[i].Name != "Good Wine")
+                    if (!isItemGoodWine)
                     {
-                        if (_items[i].Name != "Backstage passes for Re:factor"
-                            && _items[i].Name != "Backstage passes for HAXX")
+                        if (!isItemBackstagePass)
                         {
-                            if (_items[i].Quality > 0)
+                            if (item.Quality > 0)
                             {
-                                if (_items[i].Name != "B-DAWG Keychain")
+                                if (!isItemLegendary)
                                 {
-                                    _items[i].Quality = _items[i].Quality - 1;
+                                    item.Quality = item.Quality - 1;
                                 }
                             }
                         }
                         else
                         {
-                            _items[i].Quality = _items[i].Quality - _items[i].Quality;
+                            item.Quality = item.Quality - item.Quality;
                         }
                     }
                     else
                     {
-                        if (_items[i].Quality < 50)
+                        if (item.Quality < 50)
                         {
-                            _items[i].Quality = _items[i].Quality + 1;
+                            item.Quality = item.Quality + 1;
                         }
                     }
                 }

@@ -19,73 +19,62 @@ namespace GildedTros.App
                 var isItemBackstagePass = item.Name.Contains("Backstage pass");
                 var isItemLegendary = item.Name == "B-DAWG Keychain";
 
-                if (!isItemGoodWine && !isItemBackstagePass)
-                {
-                    if (item.Quality > 0)
-                    {
-                        if (!isItemLegendary)
-                        {
-                            item.Quality = item.Quality - 1;
-                        }
-                    }
-                }
-                else
+                if (isItemLegendary) continue;
+
+                item.SellIn--;
+
+                if (isItemGoodWine)
                 {
                     if (item.Quality < 50)
                     {
-                        item.Quality = item.Quality + 1;
-
-                        if (isItemBackstagePass)
-                        {
-                            if (item.SellIn < 11)
-                            {
-                                if (item.Quality < 50)
-                                {
-                                    item.Quality = item.Quality + 1;
-                                }
-                            }
-
-                            if (item.SellIn < 6)
-                            {
-                                if (item.Quality < 50)
-                                {
-                                    item.Quality = item.Quality + 1;
-                                }
-                            }
-                        }
+                        item.Quality++;
                     }
                 }
-
-                if (!isItemLegendary)
+                else if (isItemBackstagePass)
                 {
-                    item.SellIn = item.SellIn - 1;
-                }
-
-                if (item.SellIn < 0)
-                {
-                    if (!isItemGoodWine)
+                    if (item.SellIn < 0)
                     {
-                        if (!isItemBackstagePass)
-                        {
-                            if (item.Quality > 0)
-                            {
-                                if (!isItemLegendary)
-                                {
-                                    item.Quality = item.Quality - 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            item.Quality = item.Quality - item.Quality;
-                        }
+                        item.Quality = 0;
+                        continue;
                     }
                     else
                     {
                         if (item.Quality < 50)
                         {
-                            item.Quality = item.Quality + 1;
+                            item.Quality++;
                         }
+                    }
+
+                    if (item.SellIn < 10)
+                    {
+                        if (item.Quality < 50)
+                        {
+                            item.Quality++;
+                        }
+                    }
+
+                    if (item.SellIn < 5)
+                    {
+                        if (item.Quality < 50)
+                        {
+                            item.Quality++;
+                        }
+                    }
+                }
+                else
+                {
+                    if (item.SellIn < 0)
+                    {
+                        item.Quality -= 2;
+                    }
+                    else
+                    {
+                        item.Quality--;
+                    }
+
+                    if (item.Quality < 0)
+                    {
+                        item.Quality = 0;
                     }
                 }
             }

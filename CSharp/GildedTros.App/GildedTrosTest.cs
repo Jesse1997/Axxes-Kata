@@ -49,6 +49,20 @@ namespace GildedTros.App
         }
 
         [Fact]
+        public void UpdateQuality_SmellyItem_ReturnsItemWithQualityLoweredByTwo()
+        {
+            // Arrange
+            var items = new List<Item> { new() { Name = "Long Methods", SellIn = 1, Quality = 6 } };
+            var app = new GildedTros(items);
+
+            // Act
+            app.UpdateQuality();
+
+            // Assert
+            Assert.Equal(4, items[0].Quality);
+        }
+
+        [Fact]
         public void UpdateQuality_GoodWineItem_ReturnsItemWithQualityIncreasedByOne()
         {
             // Arrange

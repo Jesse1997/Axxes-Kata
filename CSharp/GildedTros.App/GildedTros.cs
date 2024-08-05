@@ -4,86 +4,87 @@ namespace GildedTros.App
 {
     public class GildedTros
     {
-        IList<Item> Items;
-        public GildedTros(IList<Item> Items)
+        private readonly IList<Item> _items;
+
+        public GildedTros(IList<Item> items)
         {
-            this.Items = Items;
+            _items = items;
         }
 
         public void UpdateQuality()
         {
-            for (var i = 0; i < Items.Count; i++)
+            for (var i = 0; i < _items.Count; i++)
             {
-                if (Items[i].Name != "Good Wine" 
-                    && Items[i].Name != "Backstage passes for Re:factor"
-                    && Items[i].Name != "Backstage passes for HAXX")
+                if (_items[i].Name != "Good Wine"
+                    && _items[i].Name != "Backstage passes for Re:factor"
+                    && _items[i].Name != "Backstage passes for HAXX")
                 {
-                    if (Items[i].Quality > 0)
+                    if (_items[i].Quality > 0)
                     {
-                        if (Items[i].Name != "B-DAWG Keychain")
+                        if (_items[i].Name != "B-DAWG Keychain")
                         {
-                            Items[i].Quality = Items[i].Quality - 1;
+                            _items[i].Quality = _items[i].Quality - 1;
                         }
                     }
                 }
                 else
                 {
-                    if (Items[i].Quality < 50)
+                    if (_items[i].Quality < 50)
                     {
-                        Items[i].Quality = Items[i].Quality + 1;
+                        _items[i].Quality = _items[i].Quality + 1;
 
-                        if (Items[i].Name == "Backstage passes for Re:factor"
-                        || Items[i].Name == "Backstage passes for HAXX")
+                        if (_items[i].Name == "Backstage passes for Re:factor"
+                        || _items[i].Name == "Backstage passes for HAXX")
                         {
-                            if (Items[i].SellIn < 11)
+                            if (_items[i].SellIn < 11)
                             {
-                                if (Items[i].Quality < 50)
+                                if (_items[i].Quality < 50)
                                 {
-                                    Items[i].Quality = Items[i].Quality + 1;
+                                    _items[i].Quality = _items[i].Quality + 1;
                                 }
                             }
 
-                            if (Items[i].SellIn < 6)
+                            if (_items[i].SellIn < 6)
                             {
-                                if (Items[i].Quality < 50)
+                                if (_items[i].Quality < 50)
                                 {
-                                    Items[i].Quality = Items[i].Quality + 1;
+                                    _items[i].Quality = _items[i].Quality + 1;
                                 }
                             }
                         }
                     }
                 }
 
-                if (Items[i].Name != "B-DAWG Keychain")
+                if (_items[i].Name != "B-DAWG Keychain")
                 {
-                    Items[i].SellIn = Items[i].SellIn - 1;
+                    _items[i].SellIn = _items[i].SellIn - 1;
                 }
 
-                if (Items[i].SellIn < 0)
+                if (_items[i].SellIn < 0)
                 {
-                    if (Items[i].Name != "Good Wine")
+                    if (_items[i].Name != "Good Wine")
                     {
-                        if (Items[i].Name != "Backstage passes for Re:factor"
-                            && Items[i].Name != "Backstage passes for HAXX")
+                        if (_items[i].Name != "Backstage passes for Re:factor"
+                            && _items[i].Name != "Backstage passes for HAXX")
                         {
-                            if (Items[i].Quality > 0)
+                            if (_items[i].Quality > 0)
                             {
-                                if (Items[i].Name != "B-DAWG Keychain")
+                                if (_items[i].Name != "B-DAWG Keychain")
                                 {
-                                    Items[i].Quality = Items[i].Quality - 1;
+                                    _items[i].Quality = _items[i].Quality - 1;
                                 }
                             }
                         }
                         else
                         {
-                            Items[i].Quality = Items[i].Quality - Items[i].Quality;
+                            _items[i].Quality = _items[i].Quality - _items[i].Quality;
                         }
                     }
                     else
                     {
-                        if (Items[i].Quality < 50)
+                        if (_items[i].Quality < 50)
                         {
-                            Items[i].Quality = Items[i].Quality + 1;
+                            _items[i].Quality = _items[i].Quality + 1;
                         }
                     }
                 }
